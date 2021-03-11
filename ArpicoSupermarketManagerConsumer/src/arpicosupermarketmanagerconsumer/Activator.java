@@ -1,14 +1,13 @@
 package arpicosupermarketmanagerconsumer;
 
+import arpicosupermarketserviceproducer.items.Item;
+import arpicosupermarketserviceproducer.managerService.ManagerService;
 import java.util.List;
 import java.util.Scanner;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
-
-import arpicosupermarketserviceproducer.Item;
-import arpicosupermarketserviceproducer.ManagerService;
+import org.osgi.framework.ServiceReference; 
 
 public class Activator implements BundleActivator {
 	ServiceReference ManagerServiceReference;

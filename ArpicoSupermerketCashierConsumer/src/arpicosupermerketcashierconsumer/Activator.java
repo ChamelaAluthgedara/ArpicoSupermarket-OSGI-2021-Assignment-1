@@ -1,8 +1,8 @@
 package arpicosupermerketcashierconsumer;
+  
 
-import arpicosupermarketserviceproducer.CashierService;
-import arpicosupermarketserviceproducer.Item;
-
+import arpicosupermarketserviceproducer.cashierService.CashierService;
+import arpicosupermarketserviceproducer.items.Item;
 import java.util.List;
 import java.util.Scanner;
 
@@ -61,7 +61,7 @@ public class Activator implements BundleActivator {
 					System.out.println(
 							" \n********************* Current Item list ********************* \n");
 					System.out.println( "-----------------------------------------------------------------------------------------");
-					System.out.println("Item ID" + "\t\\t" + "Item Name" + "\t" + "Item Price" + "\t" + "Discount Percentage(%)" + "\t" + "Item Final Price" + "\t");
+					System.out.println("Item ID" + "\t\t" + "Item Name" + "\t" + "Item Price" + "\t" + "Discount Percentage(%)" + "\t" + "Item Final Price" + "\t");
 					System.out.println( "-----------------------------------------------------------------------------------------\n\n");
 
 					for (Item tempItem : itemsList) {

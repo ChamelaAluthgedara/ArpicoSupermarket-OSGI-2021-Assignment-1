@@ -3,9 +3,11 @@ Bundle-ManifestVersion: 2
 Bundle-Name: ArpicoSupermarketServiceProducer
 Bundle-SymbolicName: ArpicoSupermarketServiceProducer
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: arpicosupermarketserviceproducer.Activator
+Bundle-Activator: arpicosupermarketserviceproducer.activator.Activator
 Bundle-RequiredExecutionEnvironment: JavaSE-14
 Automatic-Module-Name: ArpicoSupermarketServiceProducer
 Import-Package: org.osgi.framework;version="1.3.0"
 Bundle-ActivationPolicy: lazy
-Export-Package: arpicosupermarketserviceproducer
+Export-Package: arpicosupermarketserviceproducer.cashierService,
+ arpicosupermarketserviceproducer.items,
+ arpicosupermarketserviceproducer.managerService
