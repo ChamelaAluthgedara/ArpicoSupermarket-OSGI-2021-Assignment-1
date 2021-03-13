@@ -1,7 +1,7 @@
 package arpicosupermerketcashierconsumer;
   
 
-import arpicosupermarketserviceproducer.cashierService.CashierService;
+import arpicosupermarketserviceproducer.cashierService.ArpicoCashierService;
 import arpicosupermarketserviceproducer.items.Item;
 import java.util.List;
 import java.util.Scanner;
@@ -15,6 +15,8 @@ public class Activator implements BundleActivator {
 	private boolean exit = false;
 	Scanner input = new Scanner(System.in);
 
+	String keyPress = null;
+	String generatedBill = null;
 	String naviagteMessage = "PRESS 0 TO BACK TO MAIN-MENU OR PRESS ANY KEY TO CONTINUE ...";
 	String errorMessage = "Something went wrong !!! Re-enter a Name.";
 	
@@ -23,9 +25,9 @@ public class Activator implements BundleActivator {
 		// Life cycle method-start
 		System.out.println("\n\n ************ Starting .... Arpico Supermarket Cashier Consumer ************ ");
 		System.out.println(" ************    Arpico Supermarket Cashier Consumer Started ************ ");
-		cashierServiceReference = context.getServiceReference(CashierService.class.getName());
+		cashierServiceReference = context.getServiceReference(ArpicoCashierService.class.getName());
 		@SuppressWarnings("unchecked")
-		CashierService cashierService = (CashierService) context.getService(cashierServiceReference); // Instance of
+		ArpicoCashierService cashierService = (ArpicoCashierService) context.getService(cashierServiceReference); // Instance of
 																										// CashierService
 		do {
 			int selection = 4;
@@ -51,13 +53,11 @@ public class Activator implements BundleActivator {
 				}
 			} while (selection != 1 && selection != 2 && selection != 3);
 
-			String backToHome = null;
-			String calculateFinalBill = null;
 			int itemCount = -1;
 			if (selection == 1) {// Handles the viewing process of item list
 				do {
 
-					List<Item> itemsList = cashierService.displayItems();// Consumes the CashierService displayItems()
+					List<Item> itemsList = cashierService.displayExistingItems();// Consumes the CashierService displayItems()
 					System.out.println(
 							" \n********************* Current Item list ********************* \n");
 					System.out.println( "-----------------------------------------------------------------------------------------");
@@ -78,10 +78,10 @@ public class Activator implements BundleActivator {
 
 					System.out.println(naviagteMessage);
 
-					backToHome = input.nextLine();
+					keyPress = input.nextLine();
 				}
 
-				while (!(backToHome.equals("0")));
+				while (!(keyPress.equals("0")));
 
 			}
 
@@ -97,7 +97,7 @@ public class Activator implements BundleActivator {
 						System.out.print("Enter the Quantity: ");
 						int qty = input.nextInt();
 
-						int result = cashierService.generateBill(id, qty);
+						int result = cashierService.generateCustomerBill(id, qty);
 						// Consumes the CashierService geenrateBill()
 						if (result == -1) {
 							System.out.println("Error, Please Enter a valid item Number !!!");
@@ -105,21 +105,21 @@ public class Activator implements BundleActivator {
 							itemCount++;
 						}
 						input.nextLine();
-						System.out.println("Press 'y' to Calclate the total Bill or any Key to continue the billing....");
-						calculateFinalBill = input.nextLine();
+						System.out.println("Press 'Y' to Calclate the total Bill or any Key to continue the billing....");
+						generatedBill = input.nextLine();
 
-					} while (!(calculateFinalBill.equals("y") || calculateFinalBill.equals("Y")));
+					} while (!(generatedBill.equals("y") || generatedBill.equals("Y")));
 
 					System.out.println("\n\n************************************* Receipt Generated ************************************* \n");
-					String[][] billDetails = cashierService.dispalybillDetails();// Consumes the cashierService and displaybillDetails()
-					System.out.println( "-----------------------------------------------------------------------------------------");
+					String[][] billDetails = cashierService.dispalyGeneratedCustomerBillDetails();// Consumes the cashierService and displaybillDetails()
+					System.out.println( "------------------------------------------------------------------------------------------");
 					String format = "%-20s";
 					System.out.printf(format, "Item ID ");
 					System.out.printf(format, "Item Name ");
 					System.out.printf(format, "Item Price ");
 					System.out.printf(format, "Total ");
 					System.out.println("");
-					System.out.println( "-----------------------------------------------------------------------------------------\n");
+					System.out.println( "------------------------------------------------------------------------------------------\n");
 					
 					for (int i = 0; i <= itemCount; i++) {
 						for (int j = 0; j < billDetails[i].length; j++) {
@@ -129,23 +129,22 @@ public class Activator implements BundleActivator {
 						}
 						System.out.println("");
 					}
-					System.out.println("                                                          ----------");
-					System.out.println("Subtotal:                                                   " + cashierService.displayFinalBillAmount());// Consumes the cashierService and displayFinalBillAmount()
-					System.out.println("                                                          ----------");
-					System.out.println("                                                          ----------");
-					System.out.println( "-------------------------------------------------------------------------------------------");
+					System.out.println("                                                           ----------");
+					System.out.println("Subtotal:                                                    " + cashierService.displayCutomerCalculatedBillAmount());// Consumes the cashierService and displayFinalBillAmount()
+					System.out.println("                                                           ----------");
+					System.out.println("                                                           ----------");
+					System.out.println( "--------------------------------------------------------------------------------------------");
 					 
 					itemCount = -1;
 
 					System.out.println(naviagteMessage);
 
-					backToHome = input.nextLine();
+					keyPress = input.nextLine();
 
 				}
 
-				while (!(backToHome.equals("0")));
-			} else if (selection == 3) {
-				stop(context);
+				while (!(keyPress.equals("0")));
+			} else if (selection == 3) { 
 				return;
 			}
 		} while (!exit);
