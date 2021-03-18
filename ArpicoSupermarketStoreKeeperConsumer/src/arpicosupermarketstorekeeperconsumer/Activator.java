@@ -1,16 +1,15 @@
-package arpicosupermarketmanagerconsumer;
-
+package arpicosupermarketstorekeeperconsumer;
 import arpicosupermarketserviceproducer.items.Item;
-import arpicosupermarketserviceproducer.managerService.ArpicoManagerConsumerService;
+import arpicosupermarketserviceproducer.storekeeperService.ArpicoSupermarkertStoreKeeperConsumer;
 import java.util.List;
 import java.util.Scanner;
-
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference; 
 
 public class Activator implements BundleActivator {
-	ServiceReference ManagerServiceReference;
+	@SuppressWarnings("rawtypes")
+	ServiceReference StoreKeeperServiceReference;
 	Scanner input = new Scanner(System.in);
 
 	String keyPress = null; 
@@ -21,11 +20,11 @@ public class Activator implements BundleActivator {
 	@Override
 	public void start(BundleContext context) throws Exception {
 		// Start life cycle method
-		System.out.println(" ************ Starting .... Arpico Supermarket Manager Consumer ************ ");
-		System.out.println(" ************    Arpico Supermarket Manager Consumer Started ************ ");
-		ManagerServiceReference = context.getServiceReference(ArpicoManagerConsumerService.class.getName());
+		System.out.println("\n\n************ Starting .... Arpico Store Keeper Consumer ************ ");
+		System.out.println(" ************    Arpico Supermarket Store Keeper Started ************ ");
+		StoreKeeperServiceReference = context.getServiceReference(ArpicoSupermarkertStoreKeeperConsumer.class.getName());
 		@SuppressWarnings("unchecked")
-		ArpicoManagerConsumerService managerService = (ArpicoManagerConsumerService) context.getService(ManagerServiceReference);
+		ArpicoSupermarkertStoreKeeperConsumer managerService = (ArpicoSupermarkertStoreKeeperConsumer) context.getService(StoreKeeperServiceReference);
 
 		do {
 			int userOption = 7;
@@ -36,12 +35,10 @@ public class Activator implements BundleActivator {
 				System.out.print(
 						"What do you want to do ? Please Select an option to continue ...\n\n"
 						+ "Options,\n\n"
-						+ "1.Add a new Item. \n"
-						+ "2.Update An Items's Details.\n"
-						+ "3.Delete An Item. \n"
-						+ "4.List Items. \n"
-						+ "5.Search Product by Name. \n"
-						+ "6.Exit.\n"
+						+ "1.Update An Items's Details.\n"
+						+ "2.List Items. \n"
+						+ "3.Search Product by Name. \n"
+						+ "4.Exit.\n"
 						+ "\nPLEASE ENTER YOUR SELECTION: "
 						); 
 				
@@ -52,32 +49,12 @@ public class Activator implements BundleActivator {
 					exit = true;
 				}
 
-				if (userOption != 1 && userOption != 2 && userOption != 3 && userOption != 4 && userOption != 5 && userOption != 6) {
+				if (userOption != 1 && userOption != 2 && userOption != 3 && userOption != 4) {
 					System.out.print("PLEASE ENTER A VALID SELECTION ...");
 				}
-			} while (userOption != 1 && userOption != 2 && userOption != 3 && userOption != 4 && userOption != 5 && userOption != 6);
+			} while (userOption != 1 && userOption != 2 && userOption != 3 && userOption != 4);
 
 			if (userOption == 1) {
-				do {
-					System.out.print("Item Name: ");
-					String storeItemName = input.nextLine();
-
-					System.out.print("Item Price: ");
-					double storeItemPrice = input.nextDouble();
-
-					System.out.print("Discount(%): ");
-					double storeItemDiscount = input.nextDouble();
-					input.nextLine();
-					int systemResult = managerService.addNewItems(storeItemName, storeItemPrice, storeItemDiscount);	 
-					System.out.println((systemResult == 1 ? "\nItem Successfully Added !!!" : errorMessage) + "\n" + naviagteMessage); 
-
-					keyPress = input.nextLine();
-
-				}
-
-				while (!(keyPress.equals("0")));
-
-			} else if (userOption == 2) {
 				// Handles the updating process of an item in the list
 				do {
 					System.out.print("Item Name: ");
@@ -98,23 +75,9 @@ public class Activator implements BundleActivator {
 
 				} while (!(keyPress.equals("0")));
 
-			} else if (userOption == 3) {
-				// Handles the removing process of an existing item in the list
-				do {
-					System.out.println("Enter the item name:");
 
-					String itemName = input.nextLine();
-					int itemsResult = managerService.removeExistingItems(itemName); 
-					System.out.println((itemsResult == 1 ? "Item Successfully Removed !!!" : errorMessage) + "\n" + naviagteMessage); 
-
-
-					keyPress = input.nextLine();
-
-				}
-
-				while (!(keyPress.equals("0")));
-
-			} else if (userOption == 4) { 
+			} else if (userOption == 2) {
+				
 				do {
 					List<Item> itemsList = managerService.storeItemList();
 					System.out.println( "------------------------------------------------------------------------------------------");
@@ -141,7 +104,7 @@ public class Activator implements BundleActivator {
 
 				while (!(keyPress.equals("0")));
 
-			} else if (userOption == 5) {
+			} else if (userOption == 3) {
 				// Handles the searching process of an existing item in the list
 				do {
 
@@ -156,17 +119,20 @@ public class Activator implements BundleActivator {
 				}
 
 				while (!(keyPress.equals("0")));
-			} else if (userOption == 6) { 
+
+			} else if (userOption == 4) { 
 				return;
+				
 			}
+			
 		} while (!exit);
 	}
 
 	@Override
 	public void stop(BundleContext context) throws Exception { 
-		System.out.println(" ************ Terminating .... Arpico Supermarket Manager Consumer ************ ");
-		System.out.println(" ************ Arpico Supermarket Manager Consumer Terminated ************ ");
-		context.ungetService(ManagerServiceReference);
+		System.out.println(" ************ Terminating .... Arpico Supermarket Store Keeper Consumer ************ ");
+		System.out.println(" ************ Arpico Supermarket Manager Store Keeper Terminated ************ ");
+		context.ungetService(StoreKeeperServiceReference);
 	}
 
 }

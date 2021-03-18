@@ -5,13 +5,12 @@ import arpicosupermarketserviceproducer.cashierService.ArpicoCashierService;
 import arpicosupermarketserviceproducer.items.Item;
 import java.util.List;
 import java.util.Scanner;
-
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
+import org.osgi.framework.ServiceReference; 
 
 public class Activator implements BundleActivator {
-	ServiceReference cashierServiceReference;
+	ServiceReference<?> cashierServiceReference;
 	private boolean exit = false;
 	Scanner input = new Scanner(System.in);
 
@@ -21,12 +20,10 @@ public class Activator implements BundleActivator {
 	String errorMessage = "Something went wrong !!! Re-enter a Name.";
 	
 	@Override
-	public void start(BundleContext context) throws Exception {
-		// Life cycle method-start
+	public void start(BundleContext context) throws Exception { 
 		System.out.println("\n\n ************ Starting .... Arpico Supermarket Cashier Consumer ************ ");
 		System.out.println(" ************    Arpico Supermarket Cashier Consumer Started ************ ");
-		cashierServiceReference = context.getServiceReference(ArpicoCashierService.class.getName());
-		@SuppressWarnings("unchecked")
+		cashierServiceReference = context.getServiceReference(ArpicoCashierService.class.getName()); 
 		ArpicoCashierService cashierService = (ArpicoCashierService) context.getService(cashierServiceReference); // Instance of
 																										// CashierService
 		do {
@@ -152,8 +149,7 @@ public class Activator implements BundleActivator {
 	}
 
 	@Override
-	public void stop(BundleContext context) throws Exception {
-		// Life cycle method -stop
+	public void stop(BundleContext context) throws Exception { 
 		System.out.println(" ************ Terminating .... Arpico Supermarket Manager Consumer ************ ");
 		System.out.println(" ************ Arpico Supermarket Cashier Consumer Terminated ************ "); 
 		context.ungetService(cashierServiceReference);

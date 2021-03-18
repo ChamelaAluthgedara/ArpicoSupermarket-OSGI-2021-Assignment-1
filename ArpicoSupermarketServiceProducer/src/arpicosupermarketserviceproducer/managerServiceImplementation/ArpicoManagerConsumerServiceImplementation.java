@@ -11,10 +11,8 @@ public class ArpicoManagerConsumerServiceImplementation implements ArpicoManager
 
 	@Override
 	public synchronized int addNewItems(String itemName, double itemPrice, double itemDiscount) {
-
 		Item newItem = new Item(ArpicoDataStore.storeItemsList.size() + 1, itemName, itemPrice, itemDiscount);
 		ArpicoDataStore.storeItemsList.add(newItem);
-
 		return 1;
 	}
 
