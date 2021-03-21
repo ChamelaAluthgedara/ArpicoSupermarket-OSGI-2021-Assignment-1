@@ -1,4 +1,4 @@
-package arpicosupermarketstorekeeperconsumer;
+package arpicosupermarketstorekeeperconsumer; 
 import arpicosupermarketserviceproducer.items.Item;
 import arpicosupermarketserviceproducer.storekeeperService.ArpicoSupermarkertStoreKeeperConsumer;
 import java.util.List;

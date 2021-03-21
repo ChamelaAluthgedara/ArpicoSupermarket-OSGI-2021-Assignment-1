@@ -5,14 +5,11 @@ import java.util.List;
 import arpicosupermarketserviceproducer.cashierService.ArpicoCashierService;
 import arpicosupermarketserviceproducer.dataStore.ArpicoDataStore;
 import arpicosupermarketserviceproducer.items.Item;
- 
 
 public class ArpicoCashierCunsumerServiceImplementation implements ArpicoCashierService {
 	private List<Item> itemList = ArpicoDataStore.storeItemsList;// Item list details in the supermarket
 	private double bill;// to store the bill value
-	private String[][] generatedBilldetails = new String[1000][4]; 
-	// To store the purchased item's details ,Assumption:only 1000
-	// different items are allowed for an order
+	private String[][] generatedBilldetails = new String[1000][4];
 	private int items = -1; // to store the item count [starts from 0]
 
 	@Override

@@ -6,7 +6,7 @@ import arpicosupermarketserviceproducer.dataStore.ArpicoDataStore;
 import arpicosupermarketserviceproducer.items.Item;
 import arpicosupermarketserviceproducer.storekeeperService.ArpicoSupermarkertStoreKeeperConsumer;
 
-public class ArpicoStorekeeperConsumerServiceImplementation implements ArpicoSupermarkertStoreKeeperConsumer{ 
+public class ArpicoStorekeeperConsumerServiceImplementation implements ArpicoSupermarkertStoreKeeperConsumer {
 
 	@Override
 	public synchronized int updateExistingItems(String updatedItemName, double updatedItemPrice, double updatedItemDiscount) {
@@ -37,8 +37,8 @@ public class ArpicoStorekeeperConsumerServiceImplementation implements ArpicoSup
 			return -1;
 		}
 
-	} 
-	
+	}
+
 	@Override
 	public int searchExistingItem(String itemName) {
 		boolean valid = false;

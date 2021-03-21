@@ -6,8 +6,8 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: arpicosupermarketstorekeeperconsumer.Activator
 Bundle-RequiredExecutionEnvironment: JavaSE-14
 Automatic-Module-Name: ArpicoSupermarketStoreKeeperConsumer
-Import-Package: arpicosupermarketserviceproducer.items,
- arpicosupermarketserviceproducer.managerService,
+Import-Package: 
+ arpicosupermarketserviceproducer.items,
  arpicosupermarketserviceproducer.storekeeperService,
  org.osgi.framework;version="1.3.0"
 Bundle-ActivationPolicy: lazy
